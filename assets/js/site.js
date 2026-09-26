@@ -28,6 +28,8 @@
       hero.classList.add('is-lifted', 'is-stamped');
       if (video) video.removeAttribute('src');
     } else {
+      // 広い画面は元の大きさ（720×1280）の版、スマホは軽い版
+      video.src = matchMedia('(min-width: 900px)').matches ? video.dataset.srcHd : video.dataset.src;
       // 網が手前まで上がりきる少し前（残り0.35秒）で切り替える
       video.addEventListener('timeupdate', () => {
         if (video.duration && video.currentTime >= video.duration - 0.35) stamp();
