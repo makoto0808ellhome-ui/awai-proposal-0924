@@ -103,14 +103,16 @@ ul { padding: 0; list-style: none; }
 .taste { padding: 96px 16px 80px; text-align: center; overflow: hidden; background: var(--ink); }
 .taste__kicker { font-weight: 900; font-size: 17px; letter-spacing: .12em; }
 .taste__h { display: flex; justify-content: center; align-items: flex-end; gap: 6px; margin-top: 6px; font-weight: normal; }
-.taste__num { font-family: var(--num); font-size: min(62vw, 440px); line-height: .8; color: var(--red); letter-spacing: -.01em; }
+.taste__num { display: inline-block; font-family: var(--num); font-size: min(60vw, 420px); line-height: .8; padding: .02em .03em 0 0; color: var(--red); letter-spacing: -.01em; }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  /* 数字の中は唐揚げ。縁を白で取り、赤い影を落として形をはっきりさせる */
   .taste__num {
     color: transparent;
-    background: url("../img/karaage-big-900.webp") 50% var(--bgp, 50%) / cover no-repeat;
+    background: url("../img/karaage-fill-900.webp") 50% var(--bgp, 50%) / cover no-repeat;
     -webkit-background-clip: text; background-clip: text;
+    filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(.05em .05em 0 var(--red));
   }
-  @media (min-width: 900px) { .taste__num { background-image: url("../img/karaage-big-1600.webp"); } }
+  @media (min-width: 900px) { .taste__num { background-image: url("../img/karaage-fill-1600.webp"); } }
 }
 .taste__unit { font-family: var(--brush); font-size: min(12.5vw, 88px); line-height: 1.12; text-align: left; padding-bottom: .12em; }
 .taste__list { max-width: 520px; margin: 40px auto 0; display: grid; gap: 4px; text-align: left; }
