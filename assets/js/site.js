@@ -39,11 +39,11 @@
       hero.addEventListener('click', (e) => { if (!e.target.closest('a')) stamp(); });
       const p = video.play();
       if (p && p.catch) p.catch(stamp);
-      // 回線が遅いときは待たせない：1.6秒たっても動き出さなければ写真を出す
+      // 回線が遅いときは待たせすぎない：4秒たっても動き出さなければ写真を出す（待つ間は最初の1コマを見せている）
       let started = false;
       video.addEventListener('playing', () => { started = true; }, { once: true });
-      setTimeout(() => { if (!started) stamp(); }, 1600);
-      setTimeout(stamp, 7000);
+      setTimeout(() => { if (!started) stamp(); }, 4000);
+      setTimeout(stamp, 10000);
     }
   }
 
