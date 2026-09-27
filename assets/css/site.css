@@ -320,7 +320,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .hd__nav a { font-size: 15px; padding: 8px 16px; }
   .hero { height: 100vh; max-height: none; }
   /* 動画は縦長のまま引き伸ばさない：高さいっぱい・幅は 9:16 */
-  .hero__media { inset: 0 5vw 0 auto; width: min(44%, calc(100vh * 9 / 16)); }
+  .hero__media { inset: 0 0 0 auto; width: min(44%, calc(100vh * 9 / 16)); }
   .hero__img { height: 100%; }
   .hero::after { background: none; }
   .hero__copy { left: 5vw; right: auto; bottom: auto; top: 50%; translate: 0 -50%; width: 56vw; }
