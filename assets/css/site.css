@@ -487,3 +487,5 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
 .rsv summary::after { content: "＋"; }
 .rsv[open] summary::after { content: "－"; }
 .rsv iframe { display: block; width: 100%; height: 560px; border: 0; background: #fff; }
+
+.words__p p + p { margin-top: 1.2em; }
