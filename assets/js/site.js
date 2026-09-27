@@ -63,6 +63,55 @@
     update();
   }
 
+  // ---------- 2.2) 文字の帯：下へ読むと左へ、戻ると右へ ----------
+  const band = document.querySelector('[data-band] .band__track');
+  // ---------- 2.3) 13回の舞台：唐揚げの写真が「13」の形に抜けていく ----------
+  const award = document.querySelector('[data-award]');
+  const clamp01 = (v) => Math.min(1, Math.max(0, v));
+  const seg = (p, a, b) => { const t = clamp01((p - a) / (b - a)); return t * t * (3 - 2 * t); };
+  if (motion && (band || award)) {
+    let ticking2 = false;
+    const onScroll = () => {
+      ticking2 = false;
+      if (award) {
+        const r = award.getBoundingClientRect();
+        const p = clamp01(-r.top / (r.height - innerHeight));
+        const ph = 1 - seg(p, 0.08, 0.42);
+        award.style.setProperty('--ph', ph.toFixed(3));
+        award.style.setProperty('--ns', (1 + 0.55 * ph).toFixed(3));
+        award.style.setProperty('--no', (0.35 + 0.65 * seg(p, 0.1, 0.4)).toFixed(3));
+        award.style.setProperty('--u', seg(p, 0.42, 0.6).toFixed(3));
+        award.style.setProperty('--l', seg(p, 0.58, 0.8).toFixed(3));
+      }
+    };
+    addEventListener('scroll', () => { if (!ticking2) { ticking2 = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    // 帯はいつもゆっくり流れ続け（1秒に約40px）、スクロールすると速くなる。下へ読むと左へ、戻ると右へ
+    if (band) {
+      let x = 0, dir = 1, lastY = scrollY, boost = 0, last = performance.now();
+      const loop = (now) => {
+        const dt = Math.min(0.05, (now - last) / 1000); last = now;
+        const dy = scrollY - lastY; lastY = scrollY;
+        if (dy) { dir = dy > 0 ? 1 : -1; boost = Math.min(900, boost + Math.abs(dy) * 6); }
+        boost *= 0.9;
+        const w = band.firstElementChild.getBoundingClientRect().width || 1;
+        x -= dir * (40 + boost) * dt;
+        x = ((x % w) - w) % w;
+        band.style.setProperty('--bx', `${x.toFixed(1)}px`);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+    addEventListener('resize', onScroll);
+    onScroll();
+  }
+
+  // ---------- 2.5) スクロールで現れる（.rv） ----------
+  const rvs = document.querySelectorAll('.rv');
+  if (motion && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
+    rvs.forEach((el) => io.observe(el));
+  } else rvs.forEach((el) => el.classList.add('is-in'));
+
   // ---------- 3) 味えらび ----------
   document.querySelectorAll('[data-picker]').forEach((picker) => {
     const items = [...picker.querySelectorAll('[data-flavor]')];
