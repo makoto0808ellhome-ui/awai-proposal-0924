@@ -73,10 +73,6 @@
     let ticking2 = false;
     const onScroll = () => {
       ticking2 = false;
-      if (band) {
-        const w = band.firstElementChild.getBoundingClientRect().width || 1;
-        band.style.setProperty('--bx', `${-((scrollY * 0.45) % w)}px`);
-      }
       if (award) {
         const r = award.getBoundingClientRect();
         const p = clamp01(-r.top / (r.height - innerHeight));
@@ -89,6 +85,22 @@
       }
     };
     addEventListener('scroll', () => { if (!ticking2) { ticking2 = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    // 帯はいつもゆっくり流れ続け（1秒に約40px）、スクロールすると速くなる。下へ読むと左へ、戻ると右へ
+    if (band) {
+      let x = 0, dir = 1, lastY = scrollY, boost = 0, last = performance.now();
+      const loop = (now) => {
+        const dt = Math.min(0.05, (now - last) / 1000); last = now;
+        const dy = scrollY - lastY; lastY = scrollY;
+        if (dy) { dir = dy > 0 ? 1 : -1; boost = Math.min(900, boost + Math.abs(dy) * 6); }
+        boost *= 0.9;
+        const w = band.firstElementChild.getBoundingClientRect().width || 1;
+        x -= dir * (40 + boost) * dt;
+        x = ((x % w) - w) % w;
+        band.style.setProperty('--bx', `${x.toFixed(1)}px`);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
     addEventListener('resize', onScroll);
     onScroll();
   }
