@@ -354,7 +354,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
 .award__body { position: relative; width: min(100%, 1120px); }
 .award__kicker { font-family: var(--mincho); font-weight: 700; font-size: clamp(18px, 5vw, 28px); letter-spacing: .16em; }
 .award__h { display: flex; align-items: flex-end; gap: 10px; margin-top: 8px; font-weight: normal; }
-.award__num { display: inline-block; font-family: var(--mincho); font-weight: 900; font-size: min(60vw, 470px); line-height: .9; letter-spacing: -.02em; color: #fff; transform-origin: 40% 60%; }
+.award__num { display: inline-block; font-family: var(--mincho); font-weight: 900; font-size: min(54vw, 440px); line-height: .9; letter-spacing: -.02em; color: #fff; transform-origin: 40% 60%; }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .award__num {
     color: transparent;
@@ -364,7 +364,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   }
   @media (min-width: 900px) { .award__num { background-image: url("../img/karaage-fill-1600.webp"); -webkit-text-stroke-width: 2px; } }
 }
-.award__unit { font-family: var(--mincho); font-weight: 700; font-size: min(8.6vw, 72px); line-height: 1.3; letter-spacing: .1em; padding-bottom: .2em; white-space: nowrap; }
+.award__unit { font-family: var(--mincho); font-weight: 700; font-size: min(6.6vw, 60px); line-height: 1.3; letter-spacing: .1em; padding-bottom: .2em; white-space: nowrap; }
 .award__list { margin-top: 36px; border-top: 1px solid var(--line-w); }
 .award__list li { display: flex; align-items: baseline; gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--line-w); }
 .award__list b { font-size: 28px; line-height: 1; color: var(--red); font-weight: 600; }
@@ -479,3 +479,11 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .cards { grid-template-columns: repeat(4, 1fr); gap: 40px 24px; }
   .sauce { grid-template-columns: 320px 1fr; gap: 32px; align-items: start; }
 }
+
+/* お店のページ：ネット予約をその場で開く（香川さんから届いた埋め込み） */
+.rsv { margin-top: 12px; border: 1px solid var(--line); }
+.rsv summary { cursor: pointer; padding: 14px 16px; font-size: 14px; font-weight: 500; letter-spacing: .1em; list-style: none; display: flex; justify-content: space-between; }
+.rsv summary::-webkit-details-marker { display: none; }
+.rsv summary::after { content: "＋"; }
+.rsv[open] summary::after { content: "－"; }
+.rsv iframe { display: block; width: 100%; height: 560px; border: 0; background: #fff; }
