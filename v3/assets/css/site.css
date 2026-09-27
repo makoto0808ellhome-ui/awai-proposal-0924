@@ -464,3 +464,18 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .place__photo img { aspect-ratio: 4 / 3; }
   .place__body { width: auto; margin: 0; }
 }
+
+/* ---------- メニュー：写真のある品はカードで上に、ない品は文字の一覧で下に（2026-09-27） ---------- */
+.cards { margin-top: 22px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 14px; }
+.card__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #fff; }
+.card__name { margin-top: 10px; font-family: var(--mincho); font-weight: 700; font-size: 14px; letter-spacing: .04em; line-height: 1.55; }
+.card__name .only { margin: 4px 6px 0 0; }
+.card__name small { display: block; font-family: var(--gothic); font-weight: 400; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.card .yen b { font-size: 24px; }
+.cards + .list { margin-top: 36px; }
+.sauce { display: grid; gap: 16px; margin-top: 14px; }
+.sauce__img { width: min(100%, 320px); aspect-ratio: 4 / 3; object-fit: cover; background: #fff; }
+@media (min-width: 900px) {
+  .cards { grid-template-columns: repeat(4, 1fr); gap: 40px 24px; }
+  .sauce { grid-template-columns: 320px 1fr; gap: 32px; align-items: start; }
+}
