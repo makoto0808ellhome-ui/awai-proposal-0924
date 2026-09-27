@@ -87,8 +87,8 @@ ul { padding: 0; list-style: none; }
 
 /* 動きを許している人だけ：動画を流し、油から上げたところで写真が下からせり上がり、キャッチを押す */
 .motion .hero__video { display: block; }
-/* 横に広めの画面（タブレットや狭いPCの窓）では、縦長の動画の上下を切らずに全体を見せる */
-@media (max-width: 899px) and (min-aspect-ratio: 9 / 16) { .hero__video { object-fit: contain; } }
+/* 横に広い画面（横持ちのタブレットや狭いPCの窓）では。縦持ちのスマホは、上下のバーが太いブラウザでも 3:4 より縦長なので当たらない。縦長の動画の上下を切らずに全体を見せる */
+@media (max-width: 899px) and (min-aspect-ratio: 3 / 4) { .hero__video { object-fit: contain; } }
 .motion .hero__photo { clip-path: inset(100% 0 0 0); transform: translateY(8%); transition: clip-path .62s var(--ease-out), transform .9s var(--ease-out); }
 .motion .hero.is-lifted .hero__photo { clip-path: inset(0 0 0 0); transform: none; }
 .motion .catch__a { opacity: 0; transform: translateY(28px); transition: opacity .3s ease, transform .5s var(--ease-out); }
