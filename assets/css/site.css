@@ -165,6 +165,23 @@ ul { padding: 0; list-style: none; }
 .list__name { font-family: var(--mincho); font-weight: 700; font-size: 16px; letter-spacing: .06em; line-height: 1.6; }
 .list__name small { display: block; font-family: var(--gothic); font-weight: 400; font-size: 12px; color: var(--muted); letter-spacing: .04em; margin-top: 2px; }
 .list .yen b { font-size: 26px; }
+
+/* 平日限定の日替わり弁当：色の面は足さない（本人 9/30「違和感ありすぎる」）。
+   このサイトがもう持っている言葉だけで大きく＝紙の地・細い罫線・明朝の名前・大きなセリフ体の数字（「10個〜」と同じ出し方）。赤は数字だけ */
+.daily { margin-top: 34px; padding: 22px 0 18px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+.daily__name { font-family: var(--mincho); font-weight: 700; font-size: 22px; letter-spacing: .1em; line-height: 1.5; }
+.daily .tag { display: block; width: fit-content; margin: 0 0 10px; }
+.daily .yen { display: flex; margin-top: 6px; gap: 8px; font-family: var(--mincho); font-weight: 700; font-size: 26px; }
+.daily .yen b { font-size: min(40vw, 190px); line-height: .84; letter-spacing: -.02em; color: var(--red); }
+.daily__note { margin-top: 14px; font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+.lunch .daily + .lead { margin-top: 26px; }
+.msec .daily + .cards, .msec .daily + .list { margin-top: 36px; }
+@media (min-width: 900px) {
+  .daily { max-width: 760px; display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 40px; padding: 30px 0 24px; }
+  .daily__name { font-size: 30px; }
+  .daily .yen { margin-top: 0; grid-row: 1 / span 2; grid-column: 2; font-size: 32px; }
+  .daily__note { margin-top: 10px; }
+}
 .more { display: inline-flex; align-items: center; gap: 12px; margin-top: 44px; font-size: 14px; font-weight: 500; letter-spacing: .12em; text-decoration: none; padding-bottom: 6px; border-bottom: 1px solid currentColor; }
 .more svg { width: 16px; height: 16px; transition: transform .3s var(--ease); }
 .more:hover svg { transform: translateX(4px); }
