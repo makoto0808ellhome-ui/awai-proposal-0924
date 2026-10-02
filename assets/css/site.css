@@ -304,7 +304,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
 .page-bulk { padding-bottom: 72px; }
 .page-bulk .bulk { margin-top: 24px; }
 .sd { padding: 24px 0 64px; scroll-margin-top: 12px; }
-.sd__photo { width: calc(100% + var(--gutter) * 2); max-width: none; margin-inline: calc(var(--gutter) * -1); aspect-ratio: 4 / 3; object-fit: cover; }
+.sd__photo { width: calc(100% + var(--gutter) * 2); max-width: none; margin-inline: calc(var(--gutter) * -1); height: auto; aspect-ratio: auto; object-fit: contain; }
 .sd__body { padding-top: 30px; }
 .sd__name { display: flex; align-items: center; gap: 14px; font-family: var(--mincho); font-weight: 700; font-size: clamp(26px, 7.5vw, 38px); letter-spacing: .08em; line-height: 1.4; }
 .sd__name img { width: 56px; height: 56px; border-radius: 50%; }
@@ -449,7 +449,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
 .place { margin-top: 64px; }
 .place__top { display: grid; grid-template-columns: auto 1fr; align-items: start; padding-left: var(--gutter); }
 .place__name { writing-mode: vertical-rl; font-family: var(--mincho); font-weight: 900; font-size: clamp(60px, 19vw, 170px); line-height: 1; letter-spacing: .06em; margin-right: 14px; }
-.place__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.place__photo img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; }
 .motion .place__top.rv { opacity: 1; transform: none; }
 .motion .place__top .place__name { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform 1.1s var(--ease); }
 .motion .place__top .place__photo { clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease) .25s; }
@@ -478,7 +478,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .place:nth-of-type(even) { grid-template-columns: 1fr 1.25fr; }
   .place:nth-of-type(even) .place__top { order: 2; }
   .place__top { padding-left: 0; }
-  .place__photo img { aspect-ratio: 4 / 3; }
+  .place__photo img { aspect-ratio: auto; }
   .place__body { width: auto; margin: 0; }
 }
 
