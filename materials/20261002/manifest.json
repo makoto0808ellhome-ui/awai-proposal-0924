@@ -1,0 +1,60 @@
+{
+  "received": "2026-10-02",
+  "assets": [
+    {
+      "name": "IMG_1941",
+      "label": "周辺の空と緑",
+      "duration": 4.67,
+      "width": 720,
+      "height": 1280,
+      "bytes": 2498643,
+      "sha256": "142b87726f3e835689a6aa404558930e18e00be0fcd1608a963f2e6a676574cc",
+      "video": "materials/20261002/IMG_1941-142b87726f.mp4",
+      "poster": "materials/20261002/IMG_1941-142b87726f.jpg"
+    },
+    {
+      "name": "IMG_1942",
+      "label": "周辺の道",
+      "duration": 4.308,
+      "width": 720,
+      "height": 1280,
+      "bytes": 5139018,
+      "sha256": "ba7edf478db0f2758cdaf707ce4f28644a9e69e37592d94873ae54ef493819e6",
+      "video": "materials/20261002/IMG_1942-ba7edf478d.mp4",
+      "poster": "materials/20261002/IMG_1942-ba7edf478d.jpg"
+    },
+    {
+      "name": "IMG_1943",
+      "label": "果樹と山の風景",
+      "duration": 4.244,
+      "width": 720,
+      "height": 1280,
+      "bytes": 1925677,
+      "sha256": "a3cdef4c432439a8e5f26b5e2da0c26d70cd72b7ecefe1fe186543ad14926dcf",
+      "video": "materials/20261002/IMG_1943-a3cdef4c43.mp4",
+      "poster": "materials/20261002/IMG_1943-a3cdef4c43.jpg"
+    },
+    {
+      "name": "IMG_1944",
+      "label": "果樹園と山の風景",
+      "duration": 5.801,
+      "width": 720,
+      "height": 1280,
+      "bytes": 2400550,
+      "sha256": "cbfa3d0fac3b24a3203e2fad49f9530a80353384623394442fbb880aac47b442",
+      "video": "materials/20261002/IMG_1944-cbfa3d0fac.mp4",
+      "poster": "materials/20261002/IMG_1944-cbfa3d0fac.jpg"
+    },
+    {
+      "name": "IMG_1945",
+      "label": "果樹園の夕景",
+      "duration": 6.142,
+      "width": 720,
+      "height": 1280,
+      "bytes": 1828280,
+      "sha256": "f945855990fea86a59a368e16194940cea4e80fd058b931cc4f5dfe74b1f5273",
+      "video": "materials/20261002/IMG_1945-f945855990.mp4",
+      "poster": "materials/20261002/IMG_1945-f945855990.jpg"
+    }
+  ]
+}
