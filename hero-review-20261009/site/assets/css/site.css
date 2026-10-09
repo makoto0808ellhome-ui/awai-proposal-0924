@@ -344,7 +344,9 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .hero::after { background: none; }
   .catch { font-size: clamp(30px, min(4.2vw, calc((100svh - 290px) / 11.4)), 68px); text-shadow: none; }
   .hero__foot { padding-top: 30px; }
-  .hero__lead { font-size: 13px; letter-spacing: .04em; }
+  .hero__lead { font-size: 16px; font-weight: 700; letter-spacing: .04em; }
+  .hero__links a { font-size: 16px; font-weight: 700; border-bottom-width: 2px; }
+  .hero__links svg { width: 18px; height: 18px; }
   .hero__scroll { display: block; position: absolute; left: var(--gutter); top: 50%; translate: 0 -50%; writing-mode: vertical-rl; font-family: var(--serif-en); font-size: 12px; letter-spacing: .4em; color: currentColor; }
   .hero.is-lifted { color: #241a0e; }
   .hero.is-lifted .hero__links a { border-bottom-color: currentColor; }
