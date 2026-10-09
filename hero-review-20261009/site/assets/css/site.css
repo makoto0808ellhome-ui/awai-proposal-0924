@@ -491,7 +491,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .words { padding: 180px 0 160px; }
   .js .picker__stage { aspect-ratio: auto; height: min(88vh, 820px); }
   .js .picker__list { grid-template-columns: repeat(6, 1fr); margin-top: 0; }
-  .picker__name { top: 48px; right: var(--gutter); }
+  .picker__name { top: 48px; right: var(--gutter); font-size: clamp(32px, min(17vw, calc((88svh - 100px) / 4.4)), 150px); }
   .picker__meta { left: var(--gutter); bottom: 40px; }
   .slides { padding-inline: max(var(--gutter), calc((100% - 1120px) / 2)); scroll-padding-left: max(var(--gutter), calc((100% - 1120px) / 2)); }
   .slide { flex-basis: calc((min(100vw - 96px, 1120px) - 42px) / 4); }
@@ -527,5 +527,14 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
 .rsv summary::after { content: "＋"; }
 .rsv[open] summary::after { content: "－"; }
 .rsv iframe { display: block; width: 100%; height: 560px; border: 0; background: #fff; }
+
+/* 背の低い画面では固定された受賞演出より、全文を読める高さを優先する。 */
+@media (max-height: 600px) {
+  .motion .award { height: auto; }
+  .motion .award__stage { position: relative; height: auto; min-height: 100svh; padding: 80px var(--gutter); }
+  .motion .award__photo { display: none; }
+  .motion .award__num { transform: none; opacity: 1; }
+  .motion .award__unit, .motion .award__list { transform: none; opacity: 1; }
+}
 
 .words__p p + p { margin-top: 1.2em; }
