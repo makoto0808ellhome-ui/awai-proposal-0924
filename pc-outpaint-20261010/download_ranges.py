@@ -29,7 +29,7 @@ def download_asset(asset):
             return chunk
         for attempt in range(3):
             try:
-                url = asset["url"] + f"?download=true&kariju_range={begin}"
+                url = asset["url"]
                 with requests.get(url, headers={"Range": f"bytes={begin}-{end}"},
                                   stream=True, timeout=(20, 30)) as response:
                     response.raise_for_status()
@@ -38,7 +38,7 @@ def download_asset(asset):
                         if response.status_code != 206 or response.headers.get("Content-Range") != expected:
                             raise RuntimeError("Server range mismatch")
                     with chunk.open("wb") as stream:
-                        for data in response.iter_content(1024 * 1024):
+                        for data in response.iter_content(64 * 1024):
                             stream.write(data)
                 if chunk.stat().st_size != end - begin + 1:
                     raise RuntimeError("Truncated range")
@@ -49,7 +49,7 @@ def download_asset(asset):
                 time.sleep(1 + attempt)
 
     complete = 0
-    with ThreadPoolExecutor(max_workers=4) as pool:
+    with ThreadPoolExecutor(max_workers=8) as pool:
         futures = [pool.submit(get_block, i) for i in range(total_blocks)]
         for future in as_completed(futures):
             future.result()

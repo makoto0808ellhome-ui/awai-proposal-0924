@@ -1,5 +1,5 @@
 """Kariju: prepare / explicit download / WanGP generation / source restoration.
-Run with Desktop/Wan2GP/venv/Scripts/python.exe. No website files are edited.
+Run with Desktop/Wan2GP-kariju-latest/venv/Scripts/python.exe. No website files are edited.
 """
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import threading
 import time
 
 HERE = Path(__file__).resolve().parent
@@ -35,6 +36,17 @@ NEGATIVE = (
     "extra hands, duplicate chicken, duplicate scoop, deformed frying basket, distorted "
     "food, warped stainless steel, unnatural oil movement, flickering, inconsistent "
     "geometry, camera movement, text, watermark, new objects."
+)
+REFINED_POSITIVE = (
+    "A photorealistic fixed-camera view of a stainless steel commercial deep fryer. "
+    "The existing central video is preserved. Only one scoop of karaage and one hand "
+    "exist, exclusively inside the original narrow central video. Extend the background "
+    "to both sides as continuous empty stainless steel walls, metal fryer rims and "
+    "an empty oil surface. The left and right extended regions are completely empty "
+    "of food, chicken, hands and utensils. The right oil bay contains clear hot oil "
+    "and small natural bubbles only, with plain steel reflections. All food stays "
+    "in the single central scoop. Match the central lighting, perspective and timing. "
+    "Stable metal geometry, consistent realistic oil motion throughout the video."
 )
 
 
@@ -140,7 +152,7 @@ def download(approved):
         print("Verified", a["remote_path"], flush=True)
 
 
-def generate(smoke=False):
+def generate(smoke=False, refined=False):
     _, missing = required_assets()
     if missing:
         raise RuntimeError(f"{len(missing)} assets missing; no download or generation attempted")
@@ -155,11 +167,9 @@ def generate(smoke=False):
                       TOKENIZERS_PARALLELISM="false", HF_HUB_DISABLE_PROGRESS_BARS="1")
     sys.path.insert(0, str(WAN))
     import torch
-    if not torch.cuda.is_available():
-        raise RuntimeError("CUDA unavailable")
     params = {
-        "model_type": "ltx2_25_22B_distilled", "prompt": POSITIVE,
-        "negative_prompt": NEGATIVE, "seed": 20261010,
+        "model_type": "ltx2_25_22B_distilled", "prompt": REFINED_POSITIVE if refined else POSITIVE,
+        "negative_prompt": NEGATIVE, "seed": 20261011 if refined else 20261010,
         "resolution": "1024x576", "video_length": 17 if smoke else FRAMES,
         "num_inference_steps": 8, "guidance_phases": 1,
         "video_prompt_type": "VG", "video_guide": str(HERE / "control_video.mp4"),
@@ -168,11 +178,29 @@ def generate(smoke=False):
         "audio_source": None, "audio_guide": None, "image_prompt_type": "",
         "spatial_upsampling": "", "temporal_upsampling": "", "self_refiner_setting": 0,
     }
-    suffix = "smoke" if smoke else "full"
+    suffix = "smoke" if smoke else ("refined" if refined else "full")
     state = {"status": "starting", "parameters_submitted": params,
-             "gpu": torch.cuda.get_device_name(0), "started_unix": time.time(),
+             "wangp_version": "17.17",
+             "wangp_commit": run(["git", "-C", WAN, "rev-parse", "HEAD"]).strip(),
+             "runtime_configuration": {"profile": 4, "attention": "sdpa", "vae_config": 0,
+                 "transformer_quantization": "int8_convrot", "text_encoder_quantization": "int8_convrot",
+                 "outpaint_method": 1, "distilled_effective_guidance_scale": 1.0},
+             "model_manifest": "download_manifest.json",
+             "gpu": run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"]).strip(), "started_unix": time.time(),
              "vram_10gb_verified": False, "audio_mode": "null audio conditioning; output stripped with FFmpeg"}
     write_json(f"generation_{suffix}_status.json", state)
+    monitor_stop = threading.Event()
+    memory_samples = []
+    def monitor_gpu():
+        while not monitor_stop.is_set():
+            try:
+                values = run(["nvidia-smi", "--query-gpu=memory.used,memory.total",
+                              "--format=csv,noheader,nounits"]).strip().splitlines()[0].split(",")
+                memory_samples.append((int(values[0]), int(values[1])))
+            except Exception:
+                pass
+            monitor_stop.wait(2)
+    threading.Thread(target=monitor_gpu, daemon=True).start()
     # Copy config for this process; keep the existing WanGP configuration untouched.
     config = json.loads((ORIGINAL_WAN / "wgp_config.json").read_text(encoding="utf-8"))
     config.update(attention_mode="sdpa", transformer_quantization="int8",
@@ -186,6 +214,8 @@ def generate(smoke=False):
         from shared.api import init
         session = init(root=WAN, config_path=config_path, output_dir=HERE / f"raw-{suffix}",
                        cli_args=["--attention", "sdpa", "--profile", "4"])
+        if not torch.cuda.is_available():
+            raise RuntimeError("CUDA unavailable")
         # Guard the direct downloader as well as huggingface_hub offline mode.
         import shared.utils.download as dl
         def blocked_download(*args, **kwargs):
@@ -202,10 +232,20 @@ def generate(smoke=False):
         videos = [Path(f) for f in result.generated_files if Path(f).suffix.lower() == ".mp4"]
         if len(videos) != 1:
             raise RuntimeError(f"Expected one generated MP4, got {len(videos)}")
-        target = HERE / ("smoke_outpaint.mp4" if smoke else "kariju_pc_outpaint_test.mp4")
-        shutil.copy2(videos[0], target)
+        target = HERE / ("smoke_outpaint.mp4" if smoke else
+                        ("kariju_pc_outpaint_refined.mp4" if refined else "kariju_pc_outpaint_test.mp4"))
+        ffmpeg("-i", videos[0], "-map", "0:v:0", "-c:v", "copy", "-an",
+               "-movflags", "+faststart", target)
+        output_probe = probe(target)
+        output_video = next(s for s in output_probe["streams"] if s["codec_type"] == "video")
+        if int(output_video.get("nb_frames", 0)) != params["video_length"]:
+            raise RuntimeError("Generated frame count differs from the requested workload")
         state.update(status="generated_unreviewed", output=str(target),
-                     output_probe=probe(target), finished_unix=time.time(),
+                     output_probe=output_probe, finished_unix=time.time(),
+                     vram_10gb_verified=torch.cuda.get_device_properties(0).total_memory <= 10240*1024**2,
+                     verified_workload_frames=params["video_length"],
+                     nvidia_smi_peak_used_mib_sampled=max((s[0] for s in memory_samples), default=None),
+                     gpu_memory_sampling_interval_seconds=2,
                      torch_peak_allocated_bytes=torch.cuda.max_memory_allocated(),
                      torch_peak_reserved_bytes=torch.cuda.max_memory_reserved())
         write_json(f"generation_{suffix}_status.json", state)
@@ -215,11 +255,18 @@ def generate(smoke=False):
     except Exception as exc:
         state.update(status="failed", error=f"{type(exc).__name__}: {exc}", finished_unix=time.time())
         write_json(f"generation_{suffix}_status.json", state)
+        if not smoke:
+            write_json("generation_settings.json", state)
         raise
+    finally:
+        monitor_stop.set()
 
 
 def finalize():
-    candidate = HERE / "kariju_pc_outpaint_test.mp4"
+    state = json.loads((HERE / "generation_settings.json").read_text(encoding="utf-8"))
+    candidate = Path(state["output"])
+    if candidate.resolve().parent != HERE.resolve():
+        raise RuntimeError("Candidate path must be in the task folder")
     p = probe(candidate)
     v = next(s for s in p["streams"] if s["codec_type"] == "video")
     if (v["width"], v["height"]) != (WIDTH, HEIGHT) or int(v.get("nb_frames", 0)) != FRAMES:
@@ -230,16 +277,31 @@ def finalize():
     if (h, w, top, left) != (576, 324, 0, 350):
         raise RuntimeError("Geometry differs; inspect before compositing")
     filters = (
-        "[0:v]setpts=PTS-STARTPTS[ai];[1:v]setpts=PTS-STARTPTS[src];"
+        "[0:v]setpts=PTS-STARTPTS[ai];"
+        "[1:v]setpts=PTS-STARTPTS,setparams=colorspace=unknown:range=unspecified[src];"
         "[ai][src]overlay=350:0:shortest=1,setsar=1,format=yuv420p[out]"
     )
     # Restore every central source pixel without blending AI into the product.
     ffmpeg("-i", candidate, "-i", HERE / "control_video.mp4", "-filter_complex", filters,
            "-map", "[out]", "-frames:v", FRAMES, "-an", "-c:v", "libx264", "-crf", "0",
            "-movflags", "+faststart", HERE / "central_restored_lossless.mp4")
-    ffmpeg("-i", HERE / "central_restored_lossless.mp4", "-vf", "scale=1280:720:flags=lanczos,setsar=1",
+    # Use the higher-resolution real clip directly for the final product region.
+    # 405x720 is exactly 9:16; the integer placement leaves margins 438/437 pixels.
+    final_filters = (
+        "[0:v]setpts=PTS-STARTPTS,scale=1280:720:flags=lanczos,format=rgb24[bg];"
+        "[1:v]setpts=PTS-STARTPTS,scale=405:720:flags=lanczos,format=rgb24[src];"
+        "[bg][src]overlay=438:0:format=rgb:shortest=1,setsar=1,format=gbrp[out]"
+    )
+    ffmpeg("-i", candidate, "-i", HERE / "source_clip_24fps.mp4",
+           "-filter_complex", final_filters, "-map", "[out]", "-frames:v", FRAMES,
+           "-an", "-c:v", "libx264rgb", "-crf", "0", "-pix_fmt", "gbrp",
+           HERE / "final_source_restored_rgb.mp4")
+    ffmpeg("-i", HERE / "final_source_restored_rgb.mp4",
            "-frames:v", FRAMES, "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "20",
-           "-pix_fmt", "yuv420p", "-movflags", "+faststart", HERE / "kariju_pc_final.mp4")
+           "-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p",
+           "-pix_fmt", "yuv420p", "-colorspace", "bt709", "-color_trc", "bt709",
+           "-color_primaries", "bt709", "-color_range", "tv",
+           "-movflags", "+faststart", HERE / "kariju_pc_final.mp4")
     ffmpeg("-ss", "3.5", "-i", HERE / "kariju_pc_final.mp4", "-frames:v", "1",
            "-q:v", "2", HERE / "kariju_pc_poster.jpg")
     a = run(["ffmpeg", "-v", "error", "-i", HERE / "central_restored_lossless.mp4", "-vf",
@@ -249,12 +311,20 @@ def finalize():
         return [line.rsplit(",", 1)[-1].strip() for line in text.splitlines() if not line.startswith("#")]
     if checksums(a) != checksums(b):
         raise RuntimeError("Restored central pixels differ from control video")
+    highres_a = run(["ffmpeg", "-v", "error", "-i", HERE / "final_source_restored_rgb.mp4", "-vf",
+                    "crop=405:720:438:0,format=gbrp", "-an", "-f", "framemd5", "-"])
+    highres_b = run(["ffmpeg", "-v", "error", "-i", HERE / "source_clip_24fps.mp4", "-vf",
+                    "scale=405:720:flags=lanczos,format=rgb24,format=gbrp", "-an", "-f", "framemd5", "-"])
+    if checksums(highres_a) != checksums(highres_b):
+        raise RuntimeError("High-resolution source restoration differs from the scaled original")
     final_info = probe(HERE / "kariju_pc_final.mp4")
     if any(s["codec_type"] == "audio" for s in final_info["streams"]):
         raise RuntimeError("Unexpected final audio stream")
     state = json.loads((HERE / "generation_settings.json").read_text(encoding="utf-8"))
     state.update(status="encoded_unreviewed", source_manifest="source_manifest.json",
                  central_pixels_before_web_encode="145/145 frame checksums match control",
+                 high_resolution_central_pixels_before_web_encode="145/145 RGB frame checksums match scaled real source",
+                 final_source_rect={"x":438,"y":0,"width":405,"height":720},
                  final_probe=final_info, final_bytes=(HERE / "kariju_pc_final.mp4").stat().st_size,
                  final_sha256=digest(HERE / "kariju_pc_final.mp4"),
                  resize_note="1024x576 AI output enlarged to 1280x720; no AI upscaler",
@@ -265,16 +335,17 @@ def finalize():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["prepare", "check", "download", "smoke", "generate", "finalize"])
+    parser.add_argument("action", choices=["prepare", "check", "download", "smoke", "generate", "refine", "finalize"])
     parser.add_argument("--approved", action="store_true")
     args = parser.parse_args()
     if args.action == "prepare": prepare()
     elif args.action == "check":
         _, missing = required_assets()
         print(json.dumps({"missing_assets": len(missing), "missing_bytes": sum(a["bytes"] for a in missing),
-                          "generation_executed": False}, indent=2))
+                          "generation_attempted_by_this_check": False}, indent=2))
     elif args.action == "download": download(args.approved)
     elif args.action in ("smoke", "generate"): generate(args.action == "smoke")
+    elif args.action == "refine": generate(refined=True)
     elif args.action == "finalize": finalize()
 
 

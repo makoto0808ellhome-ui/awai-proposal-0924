@@ -113,11 +113,18 @@
       "sha256": null,
       "local_relative_path": "ckpts/gemma4-12b-ltx-v1/tokenizer_config.json",
       "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/gemma4-12b-ltx-v1/tokenizer_config.json"
+    },
+    {
+      "remote_path": "ltx-2.5-22b-ic-lora-sdr-to-hdr-scene-emb.safetensors",
+      "bytes": 12614165,
+      "sha256": "63c03987a1984f6d4b3d3440c15deee66b0310c01950496329f983f5dc8c88bd",
+      "local_relative_path": "ckpts/ltx-2.5-22b-ic-lora-sdr-to-hdr-scene-emb.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b-ic-lora-sdr-to-hdr-scene-emb.safetensors"
     }
   ],
-  "total_bytes": 42628197023,
-  "total_GB": 42.628197023,
-  "total_GiB": 39.70060220267624,
+  "total_bytes": 42640811188,
+  "total_GB": 42.640811188,
+  "total_GiB": 39.71235005930066,
   "approval": "user authorized latest version and required downloads, 2026-10-10",
   "note": "Loader-required NAD VAE and upsampler weights included; usage remains Default VAE and no AI upscaling."
 }
