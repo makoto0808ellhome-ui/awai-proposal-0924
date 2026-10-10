@@ -1,0 +1,112 @@
+{
+  "filename": "kariju_pc_zoom.mp4",
+  "status": "reviewed_candidate",
+  "zoom_factor": 1.1940298507462686,
+  "crop": {
+    "x": 104,
+    "y": 58,
+    "width": 1072,
+    "height": 603
+  },
+  "source": "final_source_restored_rgb.mp4",
+  "ai_regenerated": false,
+  "encoding": {
+    "codec": "libx264",
+    "preset": "slow",
+    "crf": 20,
+    "pixel_format": "yuv420p",
+    "colorspace": "bt709",
+    "faststart": true,
+    "audio": false
+  },
+  "bytes": 4044914,
+  "sha256": "c84f80119fb514f3308f1acf748f7590ba98e046ae434b004637ec0fa1f4838f",
+  "output_probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "mime_codec_string": "avc1.64001f",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuv420p",
+        "level": 31,
+        "color_range": "tv",
+        "color_space": "bt709",
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "24/1",
+        "avg_frame_rate": "24/1",
+        "time_base": "1/12288",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 74240,
+        "duration": "6.041667",
+        "bit_rate": "5349362",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "145",
+        "extradata_size": 49,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "encoder": "Lavc63.1.100 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "C:\\Users\\User\\Desktop\\claude\\site-kariju\\work\\pc-outpaint-20261010\\kariju_pc_zoom.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "6.041667",
+      "size": "4044914",
+      "bit_rate": "5356023",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf63.1.100",
+        "comment": "{\"client_id\":\"api_1791611672583510600_1\",\"image_mode\":0,\"prompt\":\"A photorealistic fixed-camera view of a stainless steel commercial deep fryer. The existing central video is preserved. Only one scoop of karaage and one hand exist, exclusively inside the original narrow central video. Extend the background to both sides as continuous empty stainless steel walls, metal fryer rims and an empty oil surface. The left and right extended regions are completely empty of food, chicken, hands and utensils. The right oil bay contains clear hot oil and small natural bubbles only, with plain steel reflections. All food stays in the single central scoop. Match the central lighting, perspective and timing. Stable metal geometry, consistent realistic oil motion throughout the video.\",\"negative_prompt\":\"extra hands, duplicate chicken, duplicate scoop, deformed frying basket, distorted food, warped stainless steel, unnatural oil movement, flickering, inconsistent geometry, camera movement, text, watermark, new objects.\",\"resolution\":\"1024x576\",\"video_length\":145,\"seed\":20261011,\"force_fps\":\"\",\"num_inference_steps\":8,\"guidance_phases\":1,\"audio_scale\":1,\"repeat_generation\":1,\"multi_prompts_gen_type\":\"PG\",\"multi_images_gen_type\":0,\"activated_loras\":[],\"loras_multipliers\":\"\",\"image_prompt_type\":\"\",\"input_video_strength\":1.0,\"video_prompt_type\":\"VG\",\"keep_frames_video_guide\":\"\",\"denoising_strength\":1.0,\"masking_strength\":0,\"video_guide_outpainting\":\"0 0 0 0\",\"video_guide_outpainting_ratio\":\"16:9\",\"replace_voice_method\":\"\",\"audio_prompt_type\":\"A\",\"sliding_window_size\":481,\"sliding_window_overlap\":17,\"sliding_window_discard_last_frames\":0,\"sliding_window_trim_first_frames\":0,\"temporal_upsampling\":\"\",\"spatial_upsampling\":\"\",\"spatial_upsampler_prompt\":\"\",\"postprocess_audio\":\"\",\"NAG_scale\":1,\"override_profile\":-1,\"override_attention\":\"\",\"custom_settings\":{\"prompt_relay_epsilon\":0.001},\"output_filename\":\"\",\"config\":\"\",\"model_type\":\"ltx2_25_22B_distilled\",\"model_filename\":\"https://huggingface.co/DeepBeepMeep/LTX-2/resolve/main/ltx-2.5-22b-distilled_diffusion_model_int8_convrot.safetensors\",\"video_quality\":\"libx264_8\",\"type\":\"WanGP v17.17 by DeepBeepMeep - LTX-2 2.5 Distilled 22B\",\"settings_version\":2.79,\"base_model_type\":\"ltx2_25_22B\",\"alt_prompt\":\"\",\"generation_time\":199,\"creation_date\":\"2026-10-10T14:58:14\",\"creation_timestamp\":1791611894}"
+      }
+    }
+  },
+  "visual_review": "12 frames at 0.5sec reviewed; chicken and scoop head remain within frame."
+}

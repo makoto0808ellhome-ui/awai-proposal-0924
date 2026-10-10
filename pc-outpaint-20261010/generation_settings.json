@@ -228,8 +228,13 @@
   "final_sha256": "a475e9a82f08e7b1834b23e82ca58cadd4b01cde8ea5e2b52991cbbb216f5d5b",
   "resize_note": "1024x576 AI output enlarged to 1280x720; no AI upscaler",
   "visual_review": "Reviewed 12 frames at 0.5-second intervals: no extra food/hands/utensils in extended sides; preserved central source verified on all 145 frames. Reflective side details remain softer than real source; human final playback review encouraged.",
-  "visual_review_summary_ja": "左右のAI拡張と実写中央の復元が完了しました。初回に出た余分な食品像は再生成で解消しています。左右の金属反射は実写より柔らかい描写なので、動画で仕上がりをご確認ください。",
+  "visual_review_summary_ja": "ご希望に合わせて、唐揚げに約1.2倍寄せた版を追加しました。ズーム前と見比べられます。唐揚げ・網・引き揚げる動作は実写を使用しています。",
   "first_attempt": "generation_settings_attempt1.json",
   "refinement_reason": "Unwanted food-like duplicate on right side in first attempt",
-  "faststart_verified": true
+  "faststart_verified": true,
+  "zoom_variant": {
+    "file": "kariju_pc_zoom.mp4",
+    "settings": "zoom_settings.json",
+    "factor": 1.1940298507462686
+  }
 }
