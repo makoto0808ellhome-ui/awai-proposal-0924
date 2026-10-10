@@ -342,7 +342,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .hd__nav a { font-size: 14px; }
   .hero { min-height: max(600px, 100svh); }
   .hero__media { inset: 0; width: 100%; }
-  .hero__video { inset: 0; width: 100%; object-fit: scale-down; object-position: center; }
+  .hero__video { inset: 0; width: 100%; object-fit: contain; object-position: center; }
   .hero__photo { background: #f3a332; }
   .hero__img { object-position: 65% 50%; }
   .hero__copy { width: 40%; align-items: center; padding: 104px var(--gutter) 100px; }
