@@ -118,7 +118,7 @@ ul { padding: 0; list-style: none; }
 
 /* 動きを許している人だけ：動画 → 網で上げたところで写真が下からせり上がる → 字がぼかしから現れる */
 .motion .hero__video { display: block; }
-@media (max-width: 899px) and (min-aspect-ratio: 3 / 4) { .hero__video { object-fit: contain; } }
+@media (max-width: 899px) and (min-aspect-ratio: 3 / 4) { .hero__video { object-fit: cover; } }
 .motion .hero__photo { clip-path: inset(100% 0 0 0); transform: translateY(8%); transition: clip-path .7s var(--ease), transform 1s var(--ease); }
 .motion .hero.is-lifted .hero__photo { clip-path: inset(0 0 0 0); transform: none; }
 .motion .catch__a, .motion .catch__b { opacity: 0; filter: blur(10px); transition: opacity 1s ease, filter 1.1s var(--ease); }
@@ -342,7 +342,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .hd__nav a { font-size: 14px; }
   .hero { min-height: max(600px, 100svh); }
   .hero__media { inset: 0; width: 100%; }
-  .hero__video { inset: 0; width: 100%; object-fit: contain; object-position: center; }
+  .hero__video { inset: 0; width: 100%; object-fit: cover; object-position: center; }
   .hero__photo { background: #f3a332; }
   .hero__img { object-position: 65% 50%; }
   .hero__copy { width: 40%; align-items: center; padding: 104px var(--gutter) 100px; }
