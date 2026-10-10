@@ -3,60 +3,74 @@
   "revision": "3a5be42565cab6b12a4ea88416e13afd76e51d26",
   "assets": [
     {
-      "remote_path": "ltx-2.3-22b-distilled_diffusion_model_quanto_int8.safetensors",
-      "bytes": 19447662547,
-      "sha256": "e23d1171acabb8ee91ade5949b9297962e4b9b19924fd6a625839a8685305691",
-      "local_relative_path": "ckpts/ltx-2.3-22b-distilled_diffusion_model_quanto_int8.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-22b-distilled_diffusion_model_quanto_int8.safetensors"
+      "remote_path": "ltx-2.5-22b-distilled_diffusion_model_int8_convrot.safetensors",
+      "bytes": 19483116168,
+      "sha256": "b4bb89c54e025d834f0c6138dbf80c245e8196c27c8bff8dd47db4c03412c72f",
+      "local_relative_path": "ckpts/ltx-2.5-22b-distilled_diffusion_model_int8_convrot.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b-distilled_diffusion_model_int8_convrot.safetensors"
     },
     {
-      "remote_path": "ltx-2.3-22b_vae.safetensors",
-      "bytes": 1452263226,
-      "sha256": "646b77e252d08ec3a6e24fccb4bf53c80c7cf52025272f155f30fe2b84f0e1d4",
-      "local_relative_path": "ckpts/ltx-2.3-22b_vae.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-22b_vae.safetensors"
+      "remote_path": "ltx-2.5-22b_video_vae_bf16.safetensors",
+      "bytes": 1452269922,
+      "sha256": "685b06ee3d9b2039647698fc4ea33175112462fc374e2777312c907897dfce8d",
+      "local_relative_path": "ckpts/ltx-2.5-22b_video_vae_bf16.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b_video_vae_bf16.safetensors"
     },
     {
-      "remote_path": "ltx-2.3-22b_audio_vae.safetensors",
-      "bytes": 106538084,
-      "sha256": "c99a673c32ad0f7f6349df58466c0a1c2f398e314484a33988794322375cbde4",
-      "local_relative_path": "ckpts/ltx-2.3-22b_audio_vae.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-22b_audio_vae.safetensors"
+      "remote_path": "ltx-2.5-22b_audio_vae_bf16.safetensors",
+      "bytes": 106546028,
+      "sha256": "43ed048b9a5aa7eac181cf1b5bf68382aa4fb9d98627575d01d9b187d3462028",
+      "local_relative_path": "ckpts/ltx-2.5-22b_audio_vae_bf16.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b_audio_vae_bf16.safetensors"
     },
     {
-      "remote_path": "ltx-2.3-22b_vocoder.safetensors",
-      "bytes": 258347744,
-      "sha256": "3624e13fcf9fa8b2a1437bd9eb628c3a436282125e9e28ca1071142a4946e3f5",
-      "local_relative_path": "ckpts/ltx-2.3-22b_vocoder.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-22b_vocoder.safetensors"
+      "remote_path": "ltx-2.5-22b_vocoder_bf16.safetensors",
+      "bytes": 258355696,
+      "sha256": "a865b27a492fea788dc35bed29b333103ca1fb9c280f4fd77976ad19a3b13435",
+      "local_relative_path": "ckpts/ltx-2.5-22b_vocoder_bf16.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b_vocoder_bf16.safetensors"
     },
     {
-      "remote_path": "ltx-2.3-22b_text_embedding_projection.safetensors",
-      "bytes": 2312151888,
-      "sha256": "985bba2295af346ac74b627afc8d27f4b5f277fb20c87968d569b4bb5d7fd28f",
-      "local_relative_path": "ckpts/ltx-2.3-22b_text_embedding_projection.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-22b_text_embedding_projection.safetensors"
+      "remote_path": "ltx-2.5-22b_text_embedding_projection_bf16.safetensors",
+      "bytes": 2312126712,
+      "sha256": "06b7017692b2d0d42a863d609cf40e7672243eb3d13ae7a19650a7a8294ac494",
+      "local_relative_path": "ckpts/ltx-2.5-22b_text_embedding_projection_bf16.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b_text_embedding_projection_bf16.safetensors"
     },
     {
-      "remote_path": "ltx-2.3-22b_embeddings_connector.safetensors",
-      "bytes": 4032404584,
-      "sha256": "eb37b1ec8024a311e863bcf5a684bdb6c64707216c3754c6f4078eae908d0600",
-      "local_relative_path": "ckpts/ltx-2.3-22b_embeddings_connector.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-22b_embeddings_connector.safetensors"
+      "remote_path": "ltx-2.5-22b_video_embeddings_connector_int8_convrot.safetensors",
+      "bytes": 1615737560,
+      "sha256": "9559f09ff6fb1b3dca10617722df7133838ea0fee6f1457c90e992447796d765",
+      "local_relative_path": "ckpts/ltx-2.5-22b_video_embeddings_connector_int8_convrot.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b_video_embeddings_connector_int8_convrot.safetensors"
     },
     {
-      "remote_path": "ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
-      "bytes": 995743560,
-      "sha256": "5f416311fa8172b65af67530758964708d29a317b830d689a51143b7f91913ed",
-      "local_relative_path": "ckpts/ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
+      "remote_path": "ltx-2.5-22b_audio_embeddings_connector_int8_convrot.safetensors",
+      "bytes": 405254656,
+      "sha256": "80270afb795fdac363dcd8329e6b375f6ca93f6a3d74a25b2bb440d342095362",
+      "local_relative_path": "ckpts/ltx-2.5-22b_audio_embeddings_connector_int8_convrot.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b_audio_embeddings_connector_int8_convrot.safetensors"
     },
     {
-      "remote_path": "ltx-2.3-temporal-upscaler-x2-1.0.safetensors",
+      "remote_path": "ltx-2.5-22b_diffusion_video_vae_bf16.safetensors",
+      "bytes": 1472223346,
+      "sha256": "847e14ca7f3355debca0cea4eaa24ac0fbcdf0061da054ac89ca638a869ddba3",
+      "local_relative_path": "ckpts/ltx-2.5-22b_diffusion_video_vae_bf16.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-22b_diffusion_video_vae_bf16.safetensors"
+    },
+    {
+      "remote_path": "ltx-2.5-spatial-upscaler-x2-1.0_bf16.safetensors",
+      "bytes": 995778752,
+      "sha256": "eb5a71fe4068ee87ccdb1c3aa635e547ca76bd2d30ae20ae889f2c325c0677e8",
+      "local_relative_path": "ckpts/ltx-2.5-spatial-upscaler-x2-1.0_bf16.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-spatial-upscaler-x2-1.0_bf16.safetensors"
+    },
+    {
+      "remote_path": "ltx-2.5-temporal-upscaler-x2-1.0_bf16.safetensors",
       "bytes": 261944000,
       "sha256": "2bc3300f2b3c3c1834d72164fbf13a3b9fd73e5a741e8a2c3f4035f89a75c3fe",
-      "local_relative_path": "ckpts/ltx-2.3-temporal-upscaler-x2-1.0.safetensors",
-      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-temporal-upscaler-x2-1.0.safetensors"
+      "local_relative_path": "ckpts/ltx-2.5-temporal-upscaler-x2-1.0_bf16.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.5-temporal-upscaler-x2-1.0_bf16.safetensors"
     },
     {
       "remote_path": "ltx-2.3-22b-ic-lora-outpaint.safetensors",
@@ -64,11 +78,46 @@
       "sha256": "32c5d3e0649aa4e89b192319f3c79460dfd2319d2859ca11fa6f88e983a81665",
       "local_relative_path": "loras/ltx2/ltx-2.3-22b-ic-lora-outpaint.safetensors",
       "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/ltx-2.3-22b-ic-lora-outpaint.safetensors"
+    },
+    {
+      "remote_path": "gemma4-12b-ltx-v1/gemma4-12b-ltx-v1_int8_convrot.safetensors",
+      "bytes": 12923893224,
+      "sha256": "6a23b673266b65a318e26cad27fabd5c67609f4ecf51aa13996feb07d0060903",
+      "local_relative_path": "ckpts/gemma4-12b-ltx-v1/gemma4-12b-ltx-v1_int8_convrot.safetensors",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/gemma4-12b-ltx-v1/gemma4-12b-ltx-v1_int8_convrot.safetensors"
+    },
+    {
+      "remote_path": "gemma4-12b-ltx-v1/config.json",
+      "bytes": 2498,
+      "sha256": null,
+      "local_relative_path": "ckpts/gemma4-12b-ltx-v1/config.json",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/gemma4-12b-ltx-v1/config.json"
+    },
+    {
+      "remote_path": "gemma4-12b-ltx-v1/chat_template.jinja",
+      "bytes": 18683,
+      "sha256": null,
+      "local_relative_path": "ckpts/gemma4-12b-ltx-v1/chat_template.jinja",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/gemma4-12b-ltx-v1/chat_template.jinja"
+    },
+    {
+      "remote_path": "gemma4-12b-ltx-v1/tokenizer.json",
+      "bytes": 32169626,
+      "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "local_relative_path": "ckpts/gemma4-12b-ltx-v1/tokenizer.json",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/gemma4-12b-ltx-v1/tokenizer.json"
+    },
+    {
+      "remote_path": "gemma4-12b-ltx-v1/tokenizer_config.json",
+      "bytes": 3736,
+      "sha256": null,
+      "local_relative_path": "ckpts/gemma4-12b-ltx-v1/tokenizer_config.json",
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2/resolve/3a5be42565cab6b12a4ea88416e13afd76e51d26/gemma4-12b-ltx-v1/tokenizer_config.json"
     }
   ],
-  "total_bytes": 30175812049,
-  "total_GB": 30.175812049,
-  "total_GiB": 28.103414968587458,
-  "approval": "pending",
-  "note": "Upscaler assets are required by this version's model loader even when upscaling is disabled. Existing Gemma encoder and tokenizer are reused."
+  "total_bytes": 42628197023,
+  "total_GB": 42.628197023,
+  "total_GiB": 39.70060220267624,
+  "approval": "user authorized latest version and required downloads, 2026-10-10",
+  "note": "Loader-required NAD VAE and upsampler weights included; usage remains Default VAE and no AI upscaling."
 }

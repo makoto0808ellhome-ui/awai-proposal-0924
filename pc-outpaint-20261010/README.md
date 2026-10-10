@@ -1,22 +1,22 @@
 # カリッジュ PC動画の左右拡張（2026-10-10）
 
-現状：素材切出し・設定案・スクリプトを準備済み。AI生成とモデル取得は未実行。
-Wan2GP 12.52 / commit 2e1170574a6c030a93afefbce3007bf0c4076e7a を調査。
-Pythonスクリプトの構文、切出し、中央復元の処理を検証。LTX-2.3生成自体の10GB動作は未検証。
+現状：素材切出し・設定案・スクリプトを準備済み。AI生成とモデル取得を承認済み・実行中。
+最新版Wan2GP 17.17 / commit 6479db36bdc2619a904a852bba9c2d78e1a83f82 を別フォルダに用意。旧12.52を保持。
+Pythonスクリプトの構文、切出し、中央復元の処理を検証。LTX-2.5生成自体の10GB動作は未検証。
 
 ## PowerShellでの実行
 
 このフォルダを作業ディレクトリにする。既存Wan2GPのvenvを使用する。
 
 ```powershell
-$wanPython = 'C:\Users\User\Desktop\Wan2GP\venv\Scripts\python.exe'
+$wanPython = 'C:\Users\User\Desktop\Wan2GP-kariju-latest\venv\Scripts\python.exe'
 & $wanPython .\pipeline.py check
 & $wanPython .\pipeline.py prepare
 ```
 
-モデル取得は本人の承認後にだけ実行する。必要容量はdownload_manifest.jsonに記載（30.18GB）。
+モデル取得は本人の承認後にだけ実行する。必要容量はdownload_manifest.jsonに記載（42.63GB）。
 revisionとSHA256を固定し、既存ファイルと同じサイズの物は取得し直さない。
-pip install、git pull、既存モデルの削除、既存wgp_config.jsonの上書きは行わない。
+追加依存は新版venvにだけ導入済み。旧venvと旧wgp_config.jsonを変更しない。新環境は旧venvの既存ライブラリを参照するため、旧venvを削除しない。
 
 ```powershell
 & $wanPython .\pipeline.py download --approved
@@ -34,8 +34,8 @@ OOM時は同条件を繰り返さず、まず他のGPUアプリを閉じる。�
 
 ## 実際の設定
 
-- model_type: ltx2_22B_distilled（base architectureはltx2_22B）
-- Quanto int8 / SDPA / profile 4 / Default VAE / 8 steps / 1 phase
+- model_type: ltx2_25_22B_distilled（base architectureはltx2_25_22B）
+- INT8 ConvRot / SDPA / profile 4 / Default VAE / 8 steps / 1 phase
 - Control Video process: VG（LTX2 Raw Format / Control Video for Ic Lora）
 - video_guide_outpainting: 0 0 0 0 / ratio: 16:9 / denoising_strength: 1
 - 1024×576 / 24fps / 145 frames、17 framesで先に動作確認

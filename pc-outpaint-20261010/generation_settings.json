@@ -1,9 +1,9 @@
 {
-  "status": "not_run_awaiting_model_download_approval",
+  "status": "downloading_approved_latest_models",
   "actual_generation_settings": null,
   "proposed_settings": {
-    "model_type": "ltx2_22B_distilled",
-    "quantization": "quanto_int8",
+    "model_type": "ltx2_25_22B_distilled",
+    "quantization": "int8_convrot",
     "attention": "sdpa",
     "profile": 4,
     "vae": "Default VAE",
@@ -27,5 +27,7 @@
   },
   "central_preservation": "After AI generation, replace all central 324x576 pixels with control-video pixels; checksum verify before final web encode.",
   "vram_10gb_verified": false,
-  "visual_review": "not generated"
+  "visual_review": "not generated",
+  "wangp_version": "17.17",
+  "wangp_commit": "6479db36bdc2619a904a852bba9c2d78e1a83f82"
 }

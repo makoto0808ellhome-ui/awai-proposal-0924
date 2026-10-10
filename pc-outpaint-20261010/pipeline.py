@@ -16,7 +16,8 @@ import sys
 import time
 
 HERE = Path(__file__).resolve().parent
-WAN = Path(r"C:/Users/User/Desktop/Wan2GP")
+WAN = Path(r"C:/Users/User/Desktop/Wan2GP-kariju-latest")
+ORIGINAL_WAN = Path(r"C:/Users/User/Desktop/Wan2GP")
 SOURCE = HERE.parents[1] / "materials/揚げ動画/揚げ_3.mp4"
 FPS, FRAMES, WIDTH, HEIGHT = 24, 145, 1024, 576
 START = 19.0
@@ -128,8 +129,10 @@ def download(approved):
     for a in missing:
         target = WAN / a["local_relative_path"]
         target.parent.mkdir(parents=True, exist_ok=True)
+        download_root = WAN / ("loras/ltx2" if a["local_relative_path"].startswith("loras/") else "ckpts")
+        print("Downloading", a["remote_path"], flush=True)
         path = hf_hub_download(repo_id=manifest["repo_id"], filename=a["remote_path"],
-                               revision=manifest["revision"], local_dir=str(target.parent))
+                               revision=manifest["revision"], local_dir=str(download_root))
         if Path(path).stat().st_size != a["bytes"]:
             raise RuntimeError("Unexpected downloaded asset size: " + a["remote_path"])
         if a.get("sha256") and digest(path) != a["sha256"]:
@@ -155,7 +158,7 @@ def generate(smoke=False):
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA unavailable")
     params = {
-        "model_type": "ltx2_22B_distilled", "prompt": POSITIVE,
+        "model_type": "ltx2_25_22B_distilled", "prompt": POSITIVE,
         "negative_prompt": NEGATIVE, "seed": 20261010,
         "resolution": "1024x576", "video_length": 17 if smoke else FRAMES,
         "num_inference_steps": 8, "guidance_phases": 1,
@@ -171,12 +174,14 @@ def generate(smoke=False):
              "vram_10gb_verified": False, "audio_mode": "null audio conditioning; output stripped with FFmpeg"}
     write_json(f"generation_{suffix}_status.json", state)
     # Copy config for this process; keep the existing WanGP configuration untouched.
-    config = json.loads((WAN / "wgp_config.json").read_text(encoding="utf-8"))
+    config = json.loads((ORIGINAL_WAN / "wgp_config.json").read_text(encoding="utf-8"))
     config.update(attention_mode="sdpa", transformer_quantization="int8",
                   text_encoder_quantization="int8", profile=4, video_profile=4,
                   vae_config=0, enhancer_enabled=0, deepy_enabled=0)
-    config_path = HERE / "runtime_config.json"
-    write_json(config_path.name, config)
+    config.update(checkpoints_paths=[str(WAN / "ckpts"), str(ORIGINAL_WAN / "ckpts")],
+                  loras_root=str(WAN / "loras"))
+    config_path = WAN / "wgp_config.json"
+    write_json(str(config_path), config)
     try:
         from shared.api import init
         session = init(root=WAN, config_path=config_path, output_dir=HERE / f"raw-{suffix}",
@@ -187,7 +192,7 @@ def generate(smoke=False):
             raise RuntimeError("Unexpected missing runtime asset; download blocked pending approval")
         dl.download_file = blocked_download
         session._ensure_runtime().module.download_file = blocked_download
-        defaults = session.get_default_settings("ltx2_22B_distilled")
+        defaults = session.get_default_settings("ltx2_25_22B_distilled")
         defaults.update(params)
         write_json(f"submitted_settings_{suffix}.json", defaults)
         torch.cuda.reset_peak_memory_stats()
