@@ -46,10 +46,6 @@
     };
     if (video) {
       video.addEventListener('timeupdate', () => {
-        // 縦素材をPCで横いっぱいに見せる際、網が上がる動きに合わせて唐揚げを追う。
-        if (video.duration && matchMedia('(min-width: 900px)').matches) {
-          video.style.objectPosition = `50% ${32 - 22 * Math.min(1, video.currentTime / video.duration)}%`;
-        } else video.style.objectPosition = '';
         if (video.duration && video.currentTime >= video.duration - 0.35) stamp();
       });
       video.addEventListener('ended', stamp);
