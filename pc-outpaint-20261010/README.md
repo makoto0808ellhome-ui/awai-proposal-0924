@@ -63,3 +63,10 @@ generation_settings.jsonのstatusはencoded_unreviewedで書き出され、12コ
 
 生成成功後のファイル：kariju_pc_outpaint_test.mp4 / kariju_pc_final.mp4 / kariju_pc_poster.jpg / generation_settings.json。
 本番サイトのHTML・CSS・JSは変更しない。確認ページの共有は既存GitHub Pagesの専用サブフォルダに限定する。
+
+
+## 了承された寄りの完成版（2026-10-10）
+
+現在の推奨動画は `kariju_pc_impact.mp4`（1280×720・145f/24fps・6.041667秒・4,401,994bytes）。`kariju_pc_final.mp4` と `kariju_pc_zoom.mp4` は比較用の旧構図として保持。ポスターは `kariju_pc_impact_poster.jpg`、設定は `impact_settings.json` および `generation_settings.json` の impact_variant。
+
+`impact_video.py` を専用Pythonで実行すると、了承された約1.43倍の固定構図を再現できる。背景はRGBマスターのcrop896×504/x192/y90。中央は実写原本のscale579×1029→crop579×720/x0/y129をx351へ合成。Web圧縮前に145/145フレームのRGB一致を確認してから、BT709/H264/CRF20/yuv420p/無音/faststartで出力。AI再生成や速度変更はない。
