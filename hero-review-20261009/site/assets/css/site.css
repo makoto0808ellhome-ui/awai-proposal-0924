@@ -81,7 +81,7 @@ ul { padding: 0; list-style: none; }
               linear-gradient(to bottom, rgba(22, 22, 22, .5) 0%, rgba(22, 22, 22, 0) 22%);
 }
 .hero__copy { position: relative; z-index: 2; pointer-events: none; display: flex; flex-direction: column; align-items: flex-end; min-height: inherit; padding: 84px var(--gutter) calc(var(--bar-h) + env(safe-area-inset-bottom) + 22px); }
-.hero__copy a { pointer-events: auto; }
+.hero__copy a, .hero__copy button { pointer-events: auto; }
 .catch {
   position: relative; flex: none;
   writing-mode: vertical-rl; font-family: var(--mincho); font-weight: 700; letter-spacing: .14em; line-height: 1.5;
@@ -94,6 +94,11 @@ ul { padding: 0; list-style: none; }
 .hero__links { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 14px; }
 .hero__links a { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid rgba(255, 255, 255, .6); }
 .hero__links svg { width: 14px; height: 14px; }
+.hero__replay { display: none; align-items: center; margin-top: 10px; padding: 6px 0; border: 0; border-bottom: 1px solid currentColor; background: transparent; color: inherit; font: 700 13px/1.5 var(--gothic); cursor: pointer; }
+.js .hero.is-stamped .hero__replay { display: inline-flex; }
+.hero.intro-playing .hero__video { display: block; }
+.hero.intro-playing .hero__photo { opacity: 0; }
+.hero.intro-playing .hero__copy { visibility: hidden; }
 .hero__scroll { display: none; }
 
 /* 横向きや拡大時は高さを固定せず、本文の分だけ自然に伸ばす。 */
@@ -337,7 +342,7 @@ body[data-store="itano"] [data-only="honten"] { display: none !important; }
   .hd__nav a { font-size: 14px; }
   .hero { min-height: max(600px, 100svh); }
   .hero__media { inset: 0; width: 100%; }
-  .hero__video { inset: 0 0 0 auto; width: min(44%, calc(100svh * 9 / 16)); }
+  .hero__video { inset: 0; width: 100%; object-fit: cover; object-position: 50% 32%; }
   .hero__photo { background: #f3a332; }
   .hero__img { object-position: 65% 50%; }
   .hero__copy { width: 40%; align-items: center; padding: 104px var(--gutter) 100px; }

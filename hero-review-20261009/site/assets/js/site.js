@@ -8,42 +8,61 @@
 (() => {
   const root = document.documentElement;
   const motion = root.classList.contains('motion');
-  const force = /[?&]motion=force/.test(location.search);
 
   // ---------- 1) 最初の画面 ----------
   const hero = document.querySelector('.hero');
   if (hero) {
     const video = hero.querySelector('.hero__video');
+    const replay = hero.querySelector('[data-intro-play]');
     let done = false;
+    let timers = [];
+    const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
     const stamp = () => {
       if (done) return;
       done = true;
+      clearTimers();
+      hero.classList.remove('intro-playing');
       hero.classList.add('is-lifted');
-      setTimeout(() => hero.classList.add('is-stamped'), 380);
-      try { sessionStorage.setItem('kariju-intro', '1'); } catch (e) { /* 使えなくても困らない */ }
+      if (video) video.pause();
+      timers.push(setTimeout(() => hero.classList.add('is-stamped'), motion ? 380 : 0));
     };
-    let seen = false;
-    try { seen = sessionStorage.getItem('kariju-intro') === '1'; } catch (e) { /* 何もしない */ }
-    if (!motion || !video || (seen && !force)) {
-      hero.classList.add('is-lifted', 'is-stamped');
-      if (video) video.removeAttribute('src');
-    } else {
-      // 広い画面は元の大きさ（720×1280）の版、スマホは軽い版
-      video.src = matchMedia('(min-width: 900px)').matches ? video.dataset.srcHd : video.dataset.src;
-      // 網が手前まで上がりきる少し前（残り0.35秒）で切り替える
+    const playIntro = () => {
+      if (!video) return;
+      clearTimers();
+      done = false;
+      hero.classList.remove('is-lifted', 'is-stamped');
+      hero.classList.add('intro-playing');
+      const src = matchMedia('(min-width: 900px)').matches ? video.dataset.srcHd : video.dataset.src;
+      if (video.error || video.getAttribute('src') !== src) video.src = src;
+      else video.currentTime = 0;
+      video.muted = true;
+      let started = false;
+      const onPlaying = () => { started = true; };
+      video.addEventListener('playing', onPlaying, { once: true });
+      const p = video.play();
+      if (p && p.catch) p.catch(stamp);
+      timers.push(setTimeout(() => { video.removeEventListener('playing', onPlaying); if (!started) stamp(); }, 4000));
+      timers.push(setTimeout(stamp, 10000));
+    };
+    if (video) {
       video.addEventListener('timeupdate', () => {
+        // 縦素材をPCで横いっぱいに見せる際、網が上がる動きに合わせて唐揚げを追う。
+        if (video.duration && matchMedia('(min-width: 900px)').matches) {
+          video.style.objectPosition = `50% ${32 - 22 * Math.min(1, video.currentTime / video.duration)}%`;
+        } else video.style.objectPosition = '';
         if (video.duration && video.currentTime >= video.duration - 0.35) stamp();
       });
       video.addEventListener('ended', stamp);
       video.addEventListener('error', stamp);
-      hero.addEventListener('click', (e) => { if (!e.target.closest('a')) stamp(); });
-      const p = video.play();
-      if (p && p.catch) p.catch(stamp);
-      // 回線が遅いときは待たせすぎない：4秒たっても動き出さなければ写真を出す（待つ間は最初の1コマを見せている）
-      let started = false;
-      video.addEventListener('playing', () => { started = true; }, { once: true });
-      setTimeout(() => { if (!started) stamp(); }, 4000);
-      setTimeout(stamp, 10000);
+    }
+    hero.addEventListener('click', (e) => { if (!e.target.closest('a, button')) stamp(); });
+    if (replay) replay.addEventListener('click', playIntro);
+    if (!motion || !video) {
+      hero.classList.add('is-lifted', 'is-stamped');
+      done = true;
+    } else {
+      // 見た回数にかかわらずページを開いたら再生。端末が動きを減らす設定なら手動再生にする。
+      playIntro();
     }
   }
 
