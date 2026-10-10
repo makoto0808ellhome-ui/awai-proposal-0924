@@ -1,0 +1,53 @@
+{
+  "checked_on": "2026-10-10",
+  "wangp_version": "12.52",
+  "wangp_commit": "2e1170574a6c030a93afefbce3007bf0c4076e7a",
+  "gpu": "name, memory.total [MiB], memory.free [MiB], driver_version\nNVIDIA GeForce RTX 3080, 10240 MiB, 9256 MiB, 610.88",
+  "python": "Python 3.11.9",
+  "dependencies": {
+    "torch": "2.10.0+cu130",
+    "gradio": "5.29.0",
+    "mmgp": "3.7.12",
+    "transformers": "4.54.0",
+    "accelerate": "1.14.0",
+    "safetensors": "0.8.0",
+    "huggingface-hub": "0.36.2",
+    "opencv-python": "5.0.0.93",
+    "av": "18.1.0"
+  },
+  "cuda_available": true,
+  "torch_cuda_version": "13.0",
+  "source": "site-kariju/materials/揚げ動画/揚げ_3.mp4",
+  "source_actual": "720x1280 / 30fps / 27.033333 seconds",
+  "generation_executed": false,
+  "models_downloaded": false,
+  "existing_models": [
+    "LTX-2 19B dev fp8",
+    "Wan2.1 1.3B",
+    "Wan2.2 5B BF16/int8",
+    "Gemma 3 12B int8 text encoder"
+  ],
+  "missing_models": [
+    "ltx-2.3-22b-distilled_diffusion_model_quanto_int8.safetensors",
+    "ltx-2.3-22b_vae.safetensors",
+    "ltx-2.3-22b_audio_vae.safetensors",
+    "ltx-2.3-22b_vocoder.safetensors",
+    "ltx-2.3-22b_text_embedding_projection.safetensors",
+    "ltx-2.3-22b_embeddings_connector.safetensors",
+    "ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
+    "ltx-2.3-temporal-upscaler-x2-1.0.safetensors",
+    "ltx-2.3-22b-ic-lora-outpaint.safetensors"
+  ],
+  "compatible_workflow": "LTX-2.3 22B Distilled 1.0 / legacy outpaint method 1 / raw Control Video VG",
+  "vram_10gb_verified_for_ltx23": false,
+  "code_evidence": [
+    "wgp.py:150 WanGP_version",
+    "wgp.py:6647-6648 64-pixel dimension rounding",
+    "models/ltx2/ltx2_handler.py:819 model files",
+    "models/ltx2/ltx2_handler.py:862 8 steps for distilled",
+    "models/ltx2/ltx2_handler.py:942 outpaint compatibility",
+    "models/ltx2/ltx2_runtime.py:1 method 1",
+    "shared/utils/utils.py:420 ratio activation",
+    "shared/utils/utils.py:450 equal left/right expansion"
+  ]
+}

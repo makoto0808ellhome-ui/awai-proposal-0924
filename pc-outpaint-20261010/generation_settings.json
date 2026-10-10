@@ -1,0 +1,31 @@
+{
+  "status": "not_run_awaiting_model_download_approval",
+  "actual_generation_settings": null,
+  "proposed_settings": {
+    "model_type": "ltx2_22B_distilled",
+    "quantization": "quanto_int8",
+    "attention": "sdpa",
+    "profile": 4,
+    "vae": "Default VAE",
+    "phases": 1,
+    "steps": 8,
+    "native_resolution": "1024x576",
+    "final_resolution": "1280x720 (FFmpeg resize)",
+    "fps": 24,
+    "frames": 145,
+    "duration_seconds": 6.041666666666667,
+    "smoke_frames": 17,
+    "video_prompt_type": "VG",
+    "video_guide_outpainting": "0 0 0 0",
+    "video_guide_outpainting_ratio": "16:9",
+    "denoising_strength": 1,
+    "audio": "null-audio conditioning; strip generated audio with -an",
+    "upscaling": "AI upscaling OFF; final FFmpeg resize",
+    "positive_prompt": "A realistic close-up commercial food video showing freshly fried Japanese karaage chicken being lifted from bubbling hot oil using a metal fryer scoop. Extend the existing fryer, bubbling oil, and stainless steel kitchen environment naturally to the left and right. Preserve the original chicken appearance, lifting movement, camera angle, lighting, and timing. Fixed camera, realistic food photography, natural oil bubbles and steam, consistent visual details across all frames. Keep all existing chicken, scoop and hands confined to the original central video. The extended side areas contain only the existing fryer, oil and stainless steel.",
+    "negative_prompt": "extra hands, duplicate chicken, duplicate scoop, deformed frying basket, distorted food, warped stainless steel, unnatural oil movement, flickering, inconsistent geometry, camera movement, text, watermark, new objects.",
+    "negative_prompt_note": "Distilled CFG=1; suppression effect is limited."
+  },
+  "central_preservation": "After AI generation, replace all central 324x576 pixels with control-video pixels; checksum verify before final web encode.",
+  "vram_10gb_verified": false,
+  "visual_review": "not generated"
+}
